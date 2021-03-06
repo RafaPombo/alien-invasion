@@ -175,7 +175,7 @@ class AlienInvasion:
 
         # Get rid of bullets that have disappeared.
         for bullet in self.bullets.copy():
-            if bullet.rect.bottom <= 0:
+            if bullet.rect.bottom <= self.sb.scoreboard_rect.bottom:
                 self.bullets.remove(bullet)
 
         self._check_bullet_alien_collisions()
