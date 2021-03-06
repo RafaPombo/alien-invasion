@@ -39,6 +39,9 @@ class AlienInvasion:
         # Make the Play button.
         self.play_button = Button(self, "Play")
 
+        pygame.mixer.music.load('sounds/music.mp3')
+        pygame.mixer.music.play(-1)
+
     def run_game(self):
         """Start the main loop for the game."""
         while True:
@@ -137,6 +140,7 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+            pygame.mixer.Sound('sounds/shoot.wav').play()
 
     def _start_new_level(self):
         """Starts a new level."""
@@ -196,6 +200,7 @@ class AlienInvasion:
         if collisions:
             for alien in collisions.values():
                 self.stats.score += self.settings.alien_points * len(alien)
+                pygame.mixer.Sound('sounds/invaderkilled.wav').play()
             self.sb.prep_score()
             self.sb.check_high_score()
 
@@ -281,6 +286,7 @@ class AlienInvasion:
 
     def _ship_hit(self):
         """Respond to the ship being hit by an alien."""
+        pygame.mixer.Sound('sounds/explosion.wav').play()
         if self.stats.ships_left > 0:
             self._reset_level()
         else:
